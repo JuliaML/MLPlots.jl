@@ -4,7 +4,7 @@ using Reexport
 @reexport using Plots
 
 export
-  corrplot
+    corrplot
 
 include("recipes.jl")
 
