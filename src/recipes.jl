@@ -1,18 +1,18 @@
 
 
-# TODO: there should be a distinction between an object that will manage a full plot, vs a component of a plot.
-# the PlotRecipe as currently implemented is more of a "custom component"
-# a recipe should fully describe the plotting command(s) and call them, likewise for updating. 
-#   actually... maybe those should explicitly derive from PlottingObject???
+# # TODO: there should be a distinction between an object that will manage a full plot, vs a component of a plot.
+# # the PlotRecipe as currently implemented is more of a "custom component"
+# # a recipe should fully describe the plotting command(s) and call them, likewise for updating. 
+# #   actually... maybe those should explicitly derive from PlottingObject???
 
-abstract PlotRecipe
+# abstract PlotRecipe
 
-getRecipeXY(recipe::PlotRecipe) = Float64[], Float64[]
-getRecipeArgs(recipe::PlotRecipe) = ()
+# getRecipeXY(recipe::PlotRecipe) = Float64[], Float64[]
+# getRecipeArgs(recipe::PlotRecipe) = ()
 
-plot(recipe::PlotRecipe, args...; kw...) = plot(getRecipeXY(recipe)..., args...; getRecipeArgs(recipe)..., kw...)
-plot!(recipe::PlotRecipe, args...; kw...) = plot!(getRecipeXY(recipe)..., args...; getRecipeArgs(recipe)..., kw...)
-plot!(plt::Plot, recipe::PlotRecipe, args...; kw...) = plot!(getRecipeXY(recipe)..., args...; getRecipeArgs(recipe)..., kw...)
+# plot(recipe::PlotRecipe, args...; kw...) = plot(getRecipeXY(recipe)..., args...; getRecipeArgs(recipe)..., kw...)
+# plot!(recipe::PlotRecipe, args...; kw...) = plot!(getRecipeXY(recipe)..., args...; getRecipeArgs(recipe)..., kw...)
+# plot!(plt::Plot, recipe::PlotRecipe, args...; kw...) = plot!(getRecipeXY(recipe)..., args...; getRecipeArgs(recipe)..., kw...)
 
 
 # -------------------------------------------------
@@ -75,7 +75,7 @@ function corrplot{T<:Real,S<:Real}(mat::AMat{T}, corrmat::AMat{S} = cor(mat);
   @assert size(corrmat) == (m,m)
 
   # create a subplot grid, and a gradient from -1 to 1
-  p = subplot(rand(0,m^2); n=m^2, leg=false, grid=false, kw...)
+  p = subplot(m^2; n=m^2, leg=false, grid=false, kw...)
   cgrad = ColorGradient(colors, [-1,1])
 
   # make all the plots
@@ -95,8 +95,8 @@ function corrplot{T<:Real,S<:Real}(mat::AMat{T}, corrmat::AMat{S} = cor(mat);
                    yticks=:none)
       else
         # scatter plots in lower triangle; color determined by correlation
-        c = RGBA(RGB(getColorZ(cgrad, corrmat[i,j])), 0.3)
-        scatter!(plt, mat[:,j], mat[:,i], w=0, ms=3, c=c, smooth=true)
+        c = getColorZ(cgrad, corrmat[i,j])
+        scatter!(plt, mat[:,j], mat[:,i], m=(4,0.4,c,stroke(0)), smooth=true)
       end
 
       if labels != nothing && length(labels) >= m
@@ -108,12 +108,5 @@ function corrplot{T<:Real,S<:Real}(mat::AMat{T}, corrmat::AMat{S} = cor(mat);
 
   # link the axes
   subplot!(p, link = (r,c) -> (true, r!=c))
-end
-
-
-"Sparsity plot... heatmap of non-zero values of a matrix"
-function spy{T<:Real}(y::AMat{T}; kw...)
-  I,J,V = findnz(y)
-  heatmap(J, I; leg=false, yflip=true, nbins=size(y), kw...)
 end
 

@@ -1,11 +1,11 @@
 module MLPlots
 
-@reexport Plots
+using Reexport
+@reexport using Plots
 
 export
-  corrplot,
-  spy
+  corrplot
 
-include("src/recipes.jl")
+include("recipes.jl")
 
 end # module
