@@ -2,7 +2,7 @@
 
 # # TODO: there should be a distinction between an object that will manage a full plot, vs a component of a plot.
 # # the PlotRecipe as currently implemented is more of a "custom component"
-# # a recipe should fully describe the plotting command(s) and call them, likewise for updating. 
+# # a recipe should fully describe the plotting command(s) and call them, likewise for updating.
 # #   actually... maybe those should explicitly derive from PlottingObject???
 
 # abstract PlotRecipe
@@ -64,13 +64,13 @@ end
 
 
 "Correlation scatter matrix"
-function corrplot{T<:Real,S<:Real}(mat::AMat{T}, corrmat::AMat{S} = cor(mat);
+function corrplot{T<:Real,S<:Real}(mat::Plots.AMat{T}, corrmat::Plots.AMat{S} = cor(mat);
                                    colors = :redsblues,
                                    labels = nothing, kw...)
     m = size(mat,2)
     centers = Float64[mean(extrema(mat[:,i])) for i in 1:m]
 
-    # might be a mistake? 
+    # might be a mistake?
     @assert m <= 20
     @assert size(corrmat) == (m,m)
 
@@ -109,4 +109,3 @@ function corrplot{T<:Real,S<:Real}(mat::AMat{T}, corrmat::AMat{S} = cor(mat);
     # link the axes
     subplot!(p, link = (r,c) -> (true, r!=c))
 end
-
