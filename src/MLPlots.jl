@@ -9,6 +9,6 @@ export
 
 include("recipes.jl")
 @require LearnBase include("loss.jl")
-@require ValueHistories include("valuehistories.jl")
+@require ValueHistories include("ValueHistories/ValueHistories.jl")
 
 end # module
