@@ -1,3 +1,5 @@
+using LearnBase
+
 typealias CLoss Union{MarginBasedLoss, LossFunctions.ZeroOneLoss}
 typealias DLoss DistanceBasedLoss
 

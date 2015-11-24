@@ -2,14 +2,13 @@ module MLPlots
 
 using Reexport
 @reexport using Plots
-using LearnBase
-using ValueHistories
+using Requires
 
 export
     corrplot
 
 include("recipes.jl")
-include("loss.jl")
-include("valuehistories.jl")
+@require LearnBase include("loss.jl")
+@require ValueHistories include("valuehistories.jl")
 
 end # module
