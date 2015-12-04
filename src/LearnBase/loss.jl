@@ -1,5 +1,7 @@
-typealias CLoss Union{LossFunctions.MarginBasedLoss, LossFunctions.ZeroOneLoss}
-typealias DLoss LossFunctions.DistanceBasedLoss
+using LearnBase
+
+typealias CLoss Union{MarginBasedLoss, LossFunctions.ZeroOneLoss}
+typealias DLoss DistanceBasedLoss
 
 _loss_xlabel(loss::CLoss) = "y ⋅ h(x)"
 _loss_xlabel(loss::DLoss) = "h(x) - y"
@@ -39,4 +41,13 @@ function Plots.plot!(plt::Plots.Plot, loss::SupervisedLoss, args...;
     plot!(plt, value_fun(loss), args...;
           label = label,
           kw...)
+end
+
+function Plots.plot!{T<:SupervisedLoss}(plt::Plots.Plot, vec::Vector{T}, args...; kw...)
+    @assert length(vec) > 0
+    plt = plot!(vec[1], args...; kw...)
+    for loss in vec[2:end]
+        plot!(plt, loss, args...)
+    end
+    plt
 end
