@@ -22,12 +22,14 @@ function Plots._apply_recipe{T<:SupervisedLoss}(d::Dict, losses::AbstractVector{
 end
 
 function Plots._apply_recipe{T<:SupervisedLoss}(d::Dict, losses::AbstractVector{T}, args...; issubplot = false, kw...)
-    get!(d, :xlabel, _loss_xlabel(first(losses)))
     get!(d, :ylabel, "L(y, h(x))")
     get!(d, :label, map(string, losses)')
     if issubplot && (get!(d, :n, length(losses)) == length(losses))
-        d[:legend] = false
-        d[:title] = d[:label]
+        get!(d, :legend, false)
+        get!(d, :title, d[:label])
+        get!(d, :xlabel, map(_loss_xlabel, losses)')
+    else
+        get!(d, :xlabel, _loss_xlabel(first(losses)))
     end
     map(value_fun, losses), args...
 end
