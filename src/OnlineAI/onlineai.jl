@@ -1,6 +1,8 @@
 
 using OnlineAI
 
+export
+    SpikeTrains
 
 # plot the nodes and connections of an ANN from OnlineAI
 # node colors correspond to activation level
@@ -59,5 +61,31 @@ function Plots._apply_recipe(d::Dict, net::NeuralNet; kw...)
 
     # return the args
     xlist, ylist
+end
+
+# -------------------------------------------------------
+
+type SpikeTrains
+    n::Int
+    plt::Plot
+end
+
+function SpikeTrains(n::Integer; kw...)
+    d = Dict(kw)
+    h = get(d, :size, default(:size))[2]
+    sz = max(1, round(Int, 0.3 * (h-100) / n))
+    plt = scatter(n; marker=(sz,:spike), legend=false, yticks=nothing, kw...)
+    SpikeTrains(n, plt)
+end
+
+function Base.push!(spiketrains::SpikeTrains, idx::Integer, t::Real)
+    push!(spiketrains.plt, idx, t, idx)
+    spiketrains
+end
+function Base.push!{T<:Real}(spiketrains::SpikeTrains, ts::AbstractVector{T})
+    for i in 1:length(ts)
+        push!(spiketrains, i, ts[i])
+    end
+    spiketrains
 end
 
