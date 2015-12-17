@@ -1,7 +1,9 @@
 
 import ROCAnalysis
 
-function Plots._apply_recipe(d::Dict, roc::ROCAnalysis.Roc; kw...)
+mid_of_vec(v::AbstractVector) = v[max(1, round(Int, length(v)/2))]
+
+function Plots._apply_recipe(d::Dict, roc::ROCAnalysis.Roc; auc = true, kw...)
 
     get!(d, :legend, false)
     get!(d, :xlabel, "False Positive Rate")
@@ -9,9 +11,14 @@ function Plots._apply_recipe(d::Dict, roc::ROCAnalysis.Roc; kw...)
     get!(d, :linestyle, [:solid :dash])
     get!(d, :linealpha, [1.0 0.5])
 
-    auc_ann = @sprintf("AUC %1.3f", 1 - ROCAnalysis.auc(roc))
-    get!(d, :annotation, (1, 0, text(auc_ann, :right, :bottom, 12, :monospace)))
+    x = roc.pfa
+    y = 1 .- roc.pmiss
+
+    if auc
+        auc_ann = @sprintf("AUC %1.3f", 1 - ROCAnalysis.auc(roc))
+        get!(d, :annotation, (mid_of_vec(x), mid_of_vec(y), text(auc_ann, :left, :top, 9, :monospace)))
+    end
 
     # xargs, yargs
-    Any[roc.pfa, 0:1], Any[1 .- roc.pmiss, 0:1]    
+    Any[x, 0:1], Any[y, 0:1]    
 end
