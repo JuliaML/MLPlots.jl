@@ -72,9 +72,11 @@ end
 
 function SpikeTrains(n::Integer; kw...)
     d = Dict(kw)
-    h = get(d, :size, default(:size))[2]
-    sz = max(1, round(Int, 0.3 * (h-100) / n))
-    plt = scatter(n; marker=(sz,:spike), legend=false, yticks=nothing, kw...)
+    sz = get(d, :ms) do
+        h = get(d, :size, default(:size))[2]
+        max(1, round(Int, 0.3 * (h-100) / n))
+    end
+    plt = scatter(n; markersize=sz, markershape=:spike, legend=false, yticks=nothing, d...)
     SpikeTrains(n, plt)
 end
 
