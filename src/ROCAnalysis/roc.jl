@@ -3,7 +3,7 @@ import ROCAnalysis
 
 mid_of_vec(v::AbstractVector) = v[max(1, round(Int, length(v)/2))]
 
-function Plots._apply_recipe(d::Dict, roc::ROCAnalysis.Roc; auc = true, kw...)
+function Plots._apply_recipe(d::Dict, roc::ROCAnalysis.Roc, auc = true; kw...)
 
     get!(d, :legend, false)
     get!(d, :xlabel, "False Positive Rate")
