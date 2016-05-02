@@ -39,7 +39,7 @@ ROC Analysis:
 
 ```julia
 using ROCAnalysis, MLPlots
-curve = ROCAnalysis.roc(2+2rand(1000), -2+2rand(100000))
+curve = ROCAnalysis.roc(2+2randn(1000), -2+2randn(100000))
 plot(curve)
 ```
 

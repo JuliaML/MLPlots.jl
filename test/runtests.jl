@@ -73,7 +73,7 @@ end
 
 facts("ROCAnalysis") do
     @plottest "rocanalysis" begin
-        plot(ROCAnalysis.roc(2+2rand(1000), -2+2rand(100000)))
+        plot(ROCAnalysis.roc(2+2randn(1000), -2+2randn(100000)))
     end
 end
 
