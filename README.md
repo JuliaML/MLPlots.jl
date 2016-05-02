@@ -7,6 +7,8 @@ WIP: Common plotting recipes for statistics and machine learning.
 This package uses [Plots.jl](https://github.com/tbreloff/Plots.jl) to provide high-level statistical and machine learning plotting
 recipes which are independent of both the platform and graphical library.
 
+---
+
 Correlation grids:
 
 ```julia
@@ -19,6 +21,7 @@ corrplot(M, size=(700,700))
 
 ![corrplot](test/refimg/corrplot.png)
 
+---
 
 Neural nets with OnlineAI:
 
@@ -30,6 +33,18 @@ plot(net)
 
 ![onlineai1](test/refimg/onlineai1.png)
 
+---
 
+ROC Analysis:
+
+```julia
+using ROCAnalysis, MLPlots
+curve = ROCAnalysis.roc(2+2rand(1000), -2+2rand(100000))
+plot(curve)
+```
+
+![rocanalysis](test/refimg/rocanalysis.png)
+
+---
 
 See the issues for a TODO list.  Collaboration is very welcome.

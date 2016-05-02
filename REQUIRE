@@ -3,3 +3,8 @@ julia 0.4
 Reexport
 Plots
 Requires
+Distributions
+StatsBase
+OnlineStats
+Parameters
+ArrayViews

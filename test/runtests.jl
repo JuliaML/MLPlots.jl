@@ -2,7 +2,10 @@ module MLPlotsTests
 
 using VisualRegressionTests
 using FactCheck
+
 using OnlineAI
+using ROCAnalysis
+
 using MLPlots
 
 # don't let pyplot use a gui... it'll crash
@@ -66,6 +69,17 @@ facts("OnlineAI") do
 end
 
 
+# ---------------------------------------------------------\
+
+facts("ROCAnalysis") do
+    @plottest "rocanalysis" begin
+        plot(ROCAnalysis.roc(2+2rand(1000), -2+2rand(100000)))
+    end
+end
+
+# ---------------------------------------------------------
+# ---------------------------------------------------------
+# ---------------------------------------------------------
 # ---------------------------------------------------------
 
 FactCheck.exitstatus()
