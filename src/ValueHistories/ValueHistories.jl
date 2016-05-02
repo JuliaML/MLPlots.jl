@@ -21,7 +21,7 @@ function Plots._apply_recipe{I,V<:Real}(d::Dict, h::QueueUnivalueHistory{I,V}; k
     get(h)
 end
 
-function Plots._apply_recipe(d::Dict, h::DynMultivalueHistory; issubplot = false, kw...)
+function Plots._apply_recipe(d::KW, h::DynMultivalueHistory; issubplot = false, kw...)
     filtered = _filter_plotable_histories(h)
     k_vec = [k for (k, v) in filtered]
     v_vec = [v for (k, v) in filtered]

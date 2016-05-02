@@ -6,21 +6,22 @@ export
 
 # plot the nodes and connections of an ANN from OnlineAI
 # node colors correspond to activation level
-function Plots._apply_recipe(d::Dict, net::NeuralNet; kw...)
-    
+function Plots._apply_recipe(d::KW, net::NeuralNet; kw...)
+
     # set the args that apply to all series
-    get!(d, :legend, false)
+    get!(d, :legend, :none)
+    get!(d, :colorbar, :none)
     get!(d, :xlims, (1, length(net.layers)+1.3))
     get!(d, :ylims, (-1, 1))
     get!(d, :size, (800,800))
     get!(d, :linealpha, 0.5)
     get!(d, :linecolor, :black)
-    get!(d, :markersize, 20)
-    get!(d, :markercolor, :redsblues)
+    get!(d, :markersize, 15)
+    # get!(d, :markercolor, :redsblues)
 
     # these will be per-series
     linetype = []
-    zcolor = []
+    marker_z = []
     xlist = []
     ylist = []
 
@@ -42,7 +43,7 @@ function Plots._apply_recipe(d::Dict, net::NeuralNet; kw...)
         end
 
         push!(linetype, :path)
-        push!(zcolor, nothing)
+        push!(marker_z, nothing)
         push!(xlist, Float64[pt[1] for pt in pts])
         push!(ylist, Float64[pt[2] for pt in pts])
     end
@@ -50,14 +51,14 @@ function Plots._apply_recipe(d::Dict, net::NeuralNet; kw...)
     # add the nodes
     for i in 2:length(ns)
         push!(linetype, :scatter)
-        push!(zcolor, net.layers[i-1].a)
+        push!(marker_z, net.layers[i-1].a)
         push!(xlist, xs[i])
         push!(ylist, ys[i])
     end
 
-    # set the linetype and zcolor args using row-vectors
+    # set the linetype and marker_z args using row-vectors
     d[:linetype] = reshape(linetype, 1, length(linetype))
-    d[:zcolor] = reshape(zcolor, 1, length(zcolor))
+    d[:marker_z] = reshape(marker_z, 1, length(marker_z))
 
     # return the args
     xlist, ylist
@@ -90,4 +91,3 @@ function Base.push!{T<:Real}(spiketrains::SpikeTrains, ts::AbstractVector{T})
     end
     spiketrains
 end
-
