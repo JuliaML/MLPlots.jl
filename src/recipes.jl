@@ -96,7 +96,7 @@ function corrplot{T<:Real,S<:Real}(mat::Plots.AMat{T}, corrmat::Plots.AMat{S} = 
             else
                 # scatter plots in lower triangle; color determined by correlation
                 c = getColorZ(cgrad, corrmat[i,j])
-                scatter!(plt, mat[:,j], mat[:,i], m=(4,0.4,c,stroke(0)), smooth=true)
+                scatter!(plt, mat[:,j], mat[:,i], lc=:black, m=(4,0.4,c,stroke(0)), smooth=true)
             end
 
             if labels != nothing && length(labels) >= m

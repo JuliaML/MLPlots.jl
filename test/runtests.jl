@@ -14,16 +14,6 @@ try
 end
 pyplot(size=(400,300), reuse=true)
 
-# builds a testable function which saves a png to the location `fn`
-# use: VisualTest(@plotfunc(plot(rand(10))), "/tmp/tmp.png")
-macro plotfunc(expr)
-    esc(quote
-        fn -> begin
-            $expr
-            png(fn)
-        end
-    end)
-end
 
 refdir = Pkg.dir("MLPlots", "test", "refimg")
 
@@ -36,12 +26,34 @@ function dotest(testname, func)
     @fact success(result) --> true
 end
 
+# builds a testable function which saves a png to the location `fn`
+# use: VisualTest(@plotfunc(plot(rand(10))), "/tmp/tmp.png")
+macro plottest(testname, expr)
+    esc(quote
+        dotest(string($testname), fn -> begin
+            $expr
+            png(fn)
+        end)
+    end)
+end
+
+# ---------------------------------------------------------
+
+facts("CorrPlot") do
+    @plottest "corrplot" begin
+        M = randn(1000, 4)
+        M[:,2] += 0.8M[:,1]
+        M[:,3] -= 0.7M[:,1]
+        corrplot(M, size=(700,700))
+    end
+end
+
 # ---------------------------------------------------------
 
 facts("OnlineAI") do
 
     # build and fit a neural net, then show it
-    func = @plotfunc begin
+    @plottest "onlineai1" begin
         net = buildClassificationNet(3,1,[15,10,5])
         for i in 1:1000
             x = rand(3)
@@ -49,9 +61,8 @@ facts("OnlineAI") do
         end
         plot(net)
     end
-    dotest("onlineai1", func)
 
-    
+
 end
 
 

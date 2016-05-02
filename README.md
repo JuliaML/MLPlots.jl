@@ -17,7 +17,7 @@ M[:,3] -= 0.7M[:,1]
 corrplot(M, size=(700,700))
 ```
 
-![corrplot_example](docs/corrplot_example.png)
+![corrplot](test/refimg/corrplot.png)
 
 
 Neural nets with OnlineAI:
@@ -28,7 +28,7 @@ net = buildClassificationNet(3, 1, [15,10,5])
 plot(net)
 ```
 
-![onlineai](test/refimg/onlineai1.png)
+![onlineai1](test/refimg/onlineai1.png)
 
 
 
