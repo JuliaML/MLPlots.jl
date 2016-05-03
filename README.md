@@ -88,7 +88,7 @@ plot(net)
 
 ```julia
 n = 20
-spikes = SpikeTrains(n, title = "Spike Trains", color = :black)
+spikes = SpikeTrains(n, title = "Spike Trains", color = :darkblue)
 for t=1:100, i=1:n
     if rand() < 0.1
         push!(spikes, i, t)
