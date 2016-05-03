@@ -7,6 +7,15 @@ Common plotting recipes for statistics and machine learning.
 This package uses [Plots.jl](https://github.com/tbreloff/Plots.jl) to provide high-level statistical and machine learning plotting
 recipes which are independent of both the platform and graphical library.
 
+There are plotting recipes for external packages which are conditionally included and are loaded on the relevant `using` call.
+For example `using LearnBase, MLPlots` will load plotting recipes for loss functions defined in LearnBase.  Recipes include:
+
+- Correlation grid (`corrplot`)
+- [LearnBase](https://github.com/Evizero/LearnBase.jl): Loss functions
+- [ValueHistories](https://github.com/JuliaML/ValueHistories.jl): Tracked values over time
+- [OnlineAI](https://github.com/tbreloff/OnlineAI.jl): Neural nets and spike trains
+- [ROCAnalysis](https://github.com/davidavdav/ROCAnalysis.jl): ROC/AUC curves
+
 #### Status: This package is usable and tested, but needs more content.  Collaboration is welcomed and encouraged!
 
 ---
@@ -93,47 +102,47 @@ plot(curve)
 
 Value Histories:
 
-    ```julia
-        history = ValueHistories.DynMultivalueHistory()
-        for i=1:100
-            x = 0.1i
-            push!(history, :a, x, sin(x))
-            push!(history, :wrongtype, x, "$(sin(x))")
-            if i % 10 == 0
-                push!(history, :b, x, cos(x))
-            end
-        end
-        plot(history)
-    end
-    ```
+```julia
+using ValueHistories, MLPlots
+history = ValueHistories.DynMultivalueHistory()
+for i=1:100
+  x = 0.1i
+  push!(history, :a, x, sin(x))
+  push!(history, :wrongtype, x, "$(sin(x))")
+  if i % 10 == 0
+    push!(history, :b, x, cos(x))
+  end
+end
+plot(history)
+```
 
-    ![valuehistories](test/refimg/valuehistories1.png)
+![valuehistories](test/refimg/valuehistories1.png)
 
-    QueueUnivalueHistory
+QueueUnivalueHistory
 
-    ```julia
-        history = ValueHistories.QueueUnivalueHistory(Int)
-        for i = 1:100
-            push!(history, i, 2i)
-        end
-        plot(history)
-    end
-    ```
+```julia
+using ValueHistories, MLPlots
+history = ValueHistories.QueueUnivalueHistory(Int)
+for i = 1:100
+  push!(history, i, 2i)
+end
+plot(history)
+```
 
-    ![valuehistories](test/refimg/valuehistories2.png)
+![valuehistories](test/refimg/valuehistories2.png)
 
-    VectorUnivalueHistory
+VectorUnivalueHistory
 
-    ```julia
-        history = ValueHistories.VectorUnivalueHistory(Int)
-        for i = 1:100
-            push!(history, i, 100-i)
-        end
-        plot(history)
-    end
-    ```
+```julia
+using ValueHistories, MLPlots
+history = ValueHistories.VectorUnivalueHistory(Int)
+for i = 1:100
+  push!(history, i, 100-i)
+end
+plot(history)
+```
 
-    ![valuehistories](test/refimg/valuehistories3.png)
+![valuehistories](test/refimg/valuehistories3.png)
 
 
 ---
