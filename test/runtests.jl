@@ -43,6 +43,32 @@ end
 
 # ---------------------------------------------------------
 
+
+facts("LearnBase") do
+    with(size=(300,300), guidefont=font(9), tickfont=font(7)) do
+        @plottest "learnbase1" begin
+            plot(LossFunctions.HingeLoss())
+        end
+        @plottest "learnbase2" begin
+            plot([ZeroOneLoss(), L1HingeLoss(), L2HingeLoss(), LogitMarginLoss()])
+        end
+        @plottest "learnbase3" begin
+            subplot([ZeroOneLoss(), L1HingeLoss(), L2HingeLoss(), LogitMarginLoss()], size=(400,400))
+        end
+        @plottest "learnbase4" begin
+            plot(LossFunctions.L2DistLoss())
+        end
+        @plottest "learnbase5" begin
+            plot([L2DistLoss(), L1DistLoss(), EpsilonInsLoss(.4), LogitDistLoss()])
+        end
+        @plottest "learnbase6" begin
+            subplot([L2DistLoss(), L1DistLoss(), EpsilonInsLoss(.4), LogitDistLoss()], size=(400,400))
+        end
+    end
+end
+
+# ---------------------------------------------------------
+
 facts("CorrPlot") do
     @plottest "corrplot" begin
         M = randn(1000, 4)
@@ -81,14 +107,31 @@ end
 # ---------------------------------------------------------
 
 facts("ValueHistories") do
-    @plottest "valuehistories" begin
+    @plottest "valuehistories1" begin
         history = ValueHistories.DynMultivalueHistory()
         for i=1:100
             x = 0.1i
             push!(history, :a, x, sin(x))
+            push!(history, :wrongtype, x, "$(sin(x))")
             if i % 10 == 0
                 push!(history, :b, x, cos(x))
             end
+        end
+        plot(history)
+    end
+
+    @plottest "valuehistories2" begin
+        history = ValueHistories.QueueUnivalueHistory(Int)
+        for i = 1:100
+            push!(history, i, 2i)
+        end
+        plot(history)
+    end
+
+    @plottest "valuehistories3" begin
+        history = ValueHistories.VectorUnivalueHistory(Int)
+        for i = 1:100
+            push!(history, i, 100-i)
         end
         plot(history)
     end

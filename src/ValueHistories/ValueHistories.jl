@@ -7,14 +7,14 @@ _is_plotable_history{I,V<:Real}(::VectorUnivalueHistory{I,V}) = true
 _filter_plotable_histories(h::DynMultivalueHistory) =
     filter((k,v) -> _is_plotable_history(v), h.storage)
 
-function Plots._apply_recipe{I,V<:Real}(d::Dict, h::VectorUnivalueHistory{I,V}; kw...)
+function Plots._apply_recipe{I,V<:Real}(d::KW, h::VectorUnivalueHistory{I,V}; kw...)
     get!(d, :markershape, :ellipse)
     get!(d, :markersize, 1.5)
     get!(d, :legend, false)
     get(h)
 end
 
-function Plots._apply_recipe{I,V<:Real}(d::Dict, h::QueueUnivalueHistory{I,V}; kw...)
+function Plots._apply_recipe{I,V<:Real}(d::KW, h::QueueUnivalueHistory{I,V}; kw...)
     get!(d, :markershape, :ellipse)
     get!(d, :markersize, 1.5)
     get!(d, :legend, false)
