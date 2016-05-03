@@ -4,7 +4,8 @@ using VisualRegressionTests
 using FactCheck
 
 using OnlineAI
-using ROCAnalysis
+import ROCAnalysis
+import ValueHistories
 
 using MLPlots
 
@@ -78,6 +79,21 @@ facts("ROCAnalysis") do
 end
 
 # ---------------------------------------------------------
+
+facts("ValueHistories") do
+    @plottest "valuehistories" begin
+        history = ValueHistories.DynMultivalueHistory()
+        for i=1:100
+            x = 0.1i
+            push!(history, :a, x, sin(x))
+            if i % 10 == 0
+                push!(history, :b, x, cos(x))
+            end
+        end
+        plot(history)
+    end
+end
+
 # ---------------------------------------------------------
 # ---------------------------------------------------------
 # ---------------------------------------------------------

@@ -2,10 +2,12 @@
 
 [![Build Status](https://travis-ci.org/JuliaML/MLPlots.jl.svg?branch=master)](https://travis-ci.org/JuliaML/MLPlots.jl)
 
-WIP: Common plotting recipes for statistics and machine learning.
+Common plotting recipes for statistics and machine learning.
 
 This package uses [Plots.jl](https://github.com/tbreloff/Plots.jl) to provide high-level statistical and machine learning plotting
 recipes which are independent of both the platform and graphical library.
+
+#### Status: This package is usable and tested, but needs more content.  Collaboration is welcomed and encouraged!
 
 ---
 
@@ -47,4 +49,21 @@ plot(curve)
 
 ---
 
-See the issues for a TODO list.  Collaboration is very welcome.
+Value Histories:
+
+```julia
+using ValueHistories, MLPlots
+history = ValueHistories.DynMultivalueHistory()
+for i=1:100
+    x = 0.1i
+    push!(history, :a, x, sin(x))
+    if i % 10 == 0
+        push!(history, :b, x, cos(x))
+    end
+end
+plot(history)
+```
+
+![valuehistories](test/refimg/valuehistories.png)
+
+---
