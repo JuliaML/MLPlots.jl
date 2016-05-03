@@ -10,7 +10,7 @@ recipes which are independent of both the platform and graphical library.
 There are plotting recipes for external packages which are conditionally included and are loaded on the relevant `using` call.
 For example `using LearnBase, MLPlots` will load plotting recipes for loss functions defined in LearnBase.  Recipes include:
 
-- Correlation grid (`corrplot`)
+- Correlation grid: `corrplot`
 - [LearnBase](https://github.com/Evizero/LearnBase.jl): Loss functions
 - [ValueHistories](https://github.com/JuliaML/ValueHistories.jl): Tracked values over time
 - [OnlineAI](https://github.com/tbreloff/OnlineAI.jl): Neural nets and spike trains
