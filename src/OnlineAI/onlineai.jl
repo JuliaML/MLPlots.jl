@@ -72,17 +72,15 @@ type SpikeTrains
 end
 
 function SpikeTrains(n::Integer; kw...)
-    d = Dict(kw)
-    sz = get(d, :ms) do
-        h = get(d, :size, default(:size))[2]
-        max(1, round(Int, 0.3 * (h-100) / n))
-    end
-    plt = scatter(n; markersize=sz, markershape=:spike, legend=false, yticks=nothing, d...)
+    plt = plot(n; leg=false, yticks=nothing, kw...)
     SpikeTrains(n, plt)
 end
 
+const _halfheight = 0.4
 function Base.push!(spiketrains::SpikeTrains, idx::Integer, t::Real)
-    push!(spiketrains.plt, idx, t, idx)
+    # push!(spiketrains.plt, idx, t, idx)
+    append!(spiketrains.plt, idx, Float64[NaN, t, t],
+            Float64[NaN, idx + _halfheight, idx - _halfheight])
     spiketrains
 end
 function Base.push!{T<:Real}(spiketrains::SpikeTrains, ts::AbstractVector{T})

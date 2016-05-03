@@ -86,6 +86,18 @@ plot(net)
 
 ![onlineai1](test/refimg/onlineai1.png)
 
+```julia
+n = 20
+spikes = SpikeTrains(n, title = "Spike Trains", color = :black)
+for t=1:100, i=1:n
+    if rand() < 0.1
+        push!(spikes, i, t)
+    end
+end
+spikes.plt
+```
+![onlineai](test/refimg/onlineai2.png)
+
 ---
 
 ROC Analysis:

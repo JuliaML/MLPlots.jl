@@ -92,7 +92,16 @@ facts("OnlineAI") do
         plot(net)
     end
 
-
+    @plottest "onlineai2" begin
+        n = 20
+        spikes = SpikeTrains(n, title = "Spike Trains", color = :black)
+        for t=1:100, i=1:n
+            if rand() < 0.1
+                push!(spikes, i, t)
+            end
+        end
+        spikes.plt
+    end
 end
 
 
