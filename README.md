@@ -18,8 +18,6 @@ For example `using LearnBase, MLPlots` will load plotting recipes for loss funct
 
 #### Status: This package is usable and tested, but needs more content.  Collaboration is welcomed and encouraged!
 
----
-
 ## LearnBase
 
 [LearnBase.jl](https://github.com/Evizero/LearnBase.jl) provides a set of commonly used loss functions. Such functions do have a typical style of plotting depending on their category.
@@ -54,10 +52,6 @@ subplot([L2DistLoss(), L1DistLoss(), EpsilonInsLoss(.4), LogitDistLoss()], size=
 ![learnbase](test/refimg/learnbase3.png)
 ![learnbase](test/refimg/learnbase6.png)
 
-end
-
----
-
 ## Correlation grids:
 
 ```julia
@@ -69,8 +63,6 @@ corrplot(M, size=(700,700))
 ```
 
 ![corrplot](test/refimg/corrplot.png)
-
----
 
 ## OnlineAI
 
@@ -96,7 +88,6 @@ spikes.plt
 ```
 ![onlineai](test/refimg/onlineai2.png)
 
----
 
 ## ROCAnalysis
 
@@ -110,7 +101,6 @@ plot(curve)
 
 ![rocanalysis](test/refimg/rocanalysis.png)
 
----
 
 ## ValueHistories
 
