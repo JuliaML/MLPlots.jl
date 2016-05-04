@@ -16,7 +16,7 @@ function Plots._apply_recipe(d::KW, roc::ROCAnalysis.Roc, auc = true; kw...)
     y = 1 .- roc.pmiss
 
     # add fill to the diagonal
-    get!(d, :fillrange, Any[x, nothing])
+    get!(d, :fillrange, Any[0 nothing])
     get!(d, :fillalpha, 0.3)
 
     if auc

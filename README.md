@@ -66,7 +66,7 @@ corrplot(M, size=(700,700))
 
 ## OnlineAI
 
-Neural nets with [OnlineAI.jl](https://github.com/tbreloff/OnlineAI.jl):
+Neural nets with [OnlineAI.jl](https://github.com/tbreloff/OnlineAI.jl).  Show the current state of a neural net:
 
 ```julia
 using OnlineAI, MLPlots
@@ -75,6 +75,8 @@ plot(net)
 ```
 
 ![onlineai1](test/refimg/onlineai1.png)
+
+For spiking neuron models, a spike (or raster) plot is useful to see firing times among neurons:
 
 ```julia
 n = 20
@@ -152,4 +154,3 @@ plot(history)
 ```
 
 ![valuehistories](test/refimg/valuehistories3.png)
-
