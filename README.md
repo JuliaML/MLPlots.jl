@@ -10,59 +10,55 @@ recipes which are independent of both the platform and graphical library.
 There are plotting recipes for external packages which are conditionally included and are loaded on the relevant `using` call.
 For example `using LearnBase, MLPlots` will load plotting recipes for loss functions defined in LearnBase.  Recipes include:
 
-- Correlation grid: `corrplot`
-- [LearnBase](https://github.com/Evizero/LearnBase.jl): Loss functions
-- [ValueHistories](https://github.com/JuliaML/ValueHistories.jl): Tracked values over time
-- [OnlineAI](https://github.com/tbreloff/OnlineAI.jl): Neural nets and spike trains
-- [ROCAnalysis](https://github.com/davidavdav/ROCAnalysis.jl): ROC/AUC curves
+- [LearnBase](#learnbase): Loss functions
+- [Correlation grids](#correlation-grids): `corrplot`
+- [OnlineAI](#onlineai): Neural nets and spike trains
+- [ROCAnalysis](rocanalysis): ROC/AUC curves
+- [ValueHistories](#valuehistories): Tracked values over time
 
 #### Status: This package is usable and tested, but needs more content.  Collaboration is welcomed and encouraged!
 
 ---
 
-LearnBase:
+## LearnBase
+
+[LearnBase.jl](https://github.com/Evizero/LearnBase.jl) provides a set of commonly used loss functions. Such functions do have a typical style of plotting depending on their category.
+
+It is possible to plot both, Margin-based and Distance-based Lossfunctions by themselves
 
 ```julia
 plot(LossFunctions.HingeLoss())
-```
-
-![learnbase](test/refimg/learnbase1.png)
-
-```julia
-plot([ZeroOneLoss(), L1HingeLoss(), L2HingeLoss(), LogitMarginLoss()])
-```
-
-![learnbase](test/refimg/learnbase2.png)
-
-```julia
-subplot([ZeroOneLoss(), L1HingeLoss(), L2HingeLoss(), LogitMarginLoss()], size=(400,400))
-```
-
-![learnbase](test/refimg/learnbase3.png)
-
-```julia
 plot(LossFunctions.L2DistLoss())
 ```
 
+![learnbase](test/refimg/learnbase1.png)
 ![learnbase](test/refimg/learnbase4.png)
 
+Furthermore it is also supported to plot a group of Lossfunctions from the same category within one plot
+
 ```julia
+plot([ZeroOneLoss(), L1HingeLoss(), L2HingeLoss(), LogitMarginLoss()])
 plot([L2DistLoss(), L1DistLoss(), EpsilonInsLoss(.4), LogitDistLoss()])
 ```
 
+![learnbase](test/refimg/learnbase2.png)
 ![learnbase](test/refimg/learnbase5.png)
 
+If desired plotting a set of lossfunctions can also be done using subplots, as the following example shows
+
 ```julia
+subplot([ZeroOneLoss(), L1HingeLoss(), L2HingeLoss(), LogitMarginLoss()], size=(400,400))
 subplot([L2DistLoss(), L1DistLoss(), EpsilonInsLoss(.4), LogitDistLoss()], size=(400,400))
 ```
 
+![learnbase](test/refimg/learnbase3.png)
 ![learnbase](test/refimg/learnbase6.png)
 
 end
 
 ---
 
-Correlation grids:
+## Correlation grids:
 
 ```julia
 using MLPlots
@@ -76,7 +72,9 @@ corrplot(M, size=(700,700))
 
 ---
 
-Neural nets with OnlineAI:
+## OnlineAI
+
+Neural nets with [OnlineAI.jl](https://github.com/tbreloff/OnlineAI.jl):
 
 ```julia
 using OnlineAI, MLPlots
@@ -100,7 +98,9 @@ spikes.plt
 
 ---
 
-ROC Analysis:
+## ROCAnalysis
+
+[ROCAnalysis.jl](https://github.com/davidavdav/ROCAnalysis.jl)
 
 ```julia
 using ROCAnalysis, MLPlots
@@ -112,7 +112,12 @@ plot(curve)
 
 ---
 
-Value Histories:
+## ValueHistories
+
+The package [ValueHistories.jl](https://github.com/JuliaML/ValueHistories.jl) provides
+different means to track one or more value of time.
+To track multiple values over time one can use a `DynMultivalueHistory`. The tracked values
+of a Numeric type (subtype of `Real`) can then be plotted like the following example shows
 
 ```julia
 using ValueHistories, MLPlots
@@ -130,7 +135,9 @@ plot(history)
 
 ![valuehistories](test/refimg/valuehistories1.png)
 
-QueueUnivalueHistory
+There are also two means to track single values a little bit more efficiently.
+
+- `QueueUnivalueHistory`
 
 ```julia
 using ValueHistories, MLPlots
@@ -143,7 +150,7 @@ plot(history)
 
 ![valuehistories](test/refimg/valuehistories2.png)
 
-VectorUnivalueHistory
+- `VectorUnivalueHistory`
 
 ```julia
 using ValueHistories, MLPlots
@@ -156,5 +163,3 @@ plot(history)
 
 ![valuehistories](test/refimg/valuehistories3.png)
 
-
----
