@@ -14,10 +14,10 @@ _filter_plotable_histories(h::DynMultivalueHistory) =
 #     get(h)
 # end
 
-@plotrecipe h::Union{VectorUnivalueHistory,QueueUnivalueHistory} begin
-    :markershape => :ellipse
-    :markersize => 1.5
-    :legend => false
+@recipe function plot(h::Union{VectorUnivalueHistory,QueueUnivalueHistory})
+    :markershape --> :ellipse
+    :markersize  --> 1.5
+    :legend      --> false
     get(h)
 end
 
@@ -29,20 +29,20 @@ end
 # end
 
 
-@plotrecipe h::DynMultivalueHistory begin
+@recipe function plot(h::DynMultivalueHistory)
     filtered = _filter_plotable_histories(h)
     k_vec = [k for (k, v) in filtered]
     v_vec = [v for (k, v) in filtered]
     if length(v_vec) > 0
-        :markershape => :ellipse
-        :markersize => 1.5
-        :label => map(string, k_vec)'
+        :markershape --> :ellipse
+        :markersize  --> 1.5
+        :label       --> map(string, k_vec)'
         if issubplot && get!(d, :n, length(v_vec)) == length(v_vec)
-            :title => d[:label]
-            :legend => false
+            :title   --> d[:label]
+            :legend  --> false
         else
-            :title => "Multivalue History"
-            :legend => true
+            :title   --> "Multivalue History"
+            :legend  --> true
         end
         get_vec = map(get, v_vec)
         [x for (x, y) in get_vec], [y for (x, y) in get_vec]
