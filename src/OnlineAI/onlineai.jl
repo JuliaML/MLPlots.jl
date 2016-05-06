@@ -67,7 +67,7 @@ end
 
 type SpikeTrains
     n::Int
-    plt::Plot
+    plt
 end
 
 function SpikeTrains(n::Integer; kw...)
