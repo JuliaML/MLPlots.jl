@@ -7,7 +7,7 @@ using OnlineAI
 import ROCAnalysis
 import ValueHistories
 
-using MLPlots
+using MLPlots, Plots
 
 # don't let pyplot use a gui... it'll crash
 # note: Agg will set gui -> :none in PyPlot
