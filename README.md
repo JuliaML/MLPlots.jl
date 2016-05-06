@@ -14,7 +14,7 @@ For example `using LearnBase, MLPlots` will load plotting recipes for loss funct
 - [Correlation grids](#correlation-grids): `corrplot`
 - [OnlineAI](#onlineai): Neural nets and spike trains
 - [ROCAnalysis](#rocanalysis): ROC/AUC curves
-- [ValueHistories](#valuehistories): Tracked values over time
+- [ValueHistories](#valuehistories): Tracked values over time 
 
 #### Status: This package is usable and tested, but needs more content.  Collaboration is welcomed and encouraged!
 
