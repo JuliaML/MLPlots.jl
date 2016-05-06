@@ -6,8 +6,6 @@ export
 
 # plot the nodes and connections of an ANN from OnlineAI
 # node colors correspond to activation level
-# function Plots._apply_recipe(d::KW, net::NeuralNet; kw...)
-
 @recipe function plot(net::NeuralNet)
     :legend     --> :none
     :colorbar   --> :none
@@ -79,7 +77,6 @@ end
 
 const _halfheight = 0.4
 function Base.push!(spiketrains::SpikeTrains, idx::Integer, t::Real)
-    # push!(spiketrains.plt, idx, t, idx)
     append!(spiketrains.plt, idx, Float64[NaN, t, t],
             Float64[NaN, idx + _halfheight, idx - _halfheight])
     spiketrains

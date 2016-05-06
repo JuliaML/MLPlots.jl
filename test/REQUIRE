@@ -1,8 +1,9 @@
 julia 0.4
 
 Reexport
-Plots
 Requires
+RecipesBase
+Plots
 FactCheck
 VisualRegressionTests
 ROCAnalysis

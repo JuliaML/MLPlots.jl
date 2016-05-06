@@ -1,6 +1,6 @@
 
 "Correlation scatter matrix"
-function corrplot{T<:Real,S<:Real}(mat::Plots.AMat{T}, corrmat::Plots.AMat{S} = cor(mat);
+function corrplot{T<:Real,S<:Real}(mat::AbstractMatrix{T}, corrmat::AbstractMatrix{S} = cor(mat);
                                    colors = :redsblues,
                                    labels = nothing, kw...)
     m = size(mat,2)
