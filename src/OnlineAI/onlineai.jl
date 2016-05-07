@@ -6,18 +6,15 @@ export
 
 # plot the nodes and connections of an ANN from OnlineAI
 # node colors correspond to activation level
-function Plots._apply_recipe(d::KW, net::NeuralNet; kw...)
-
-    # set the args that apply to all series
-    get!(d, :legend, :none)
-    get!(d, :colorbar, :none)
-    get!(d, :xlims, (1, length(net.layers)+1.3))
-    get!(d, :ylims, (-1, 1))
-    get!(d, :size, (800,800))
-    get!(d, :linealpha, 0.5)
-    get!(d, :linecolor, :black)
-    get!(d, :markersize, 15)
-    # get!(d, :markercolor, :redsblues)
+@recipe function plot(net::NeuralNet)
+    :legend     --> :none
+    :colorbar   --> :none
+    :xlims      --> (1, length(net.layers)+1.3)
+    :ylims      --> (-1, 1)
+    :size       --> (800,800)
+    :linealpha  --> 0.5
+    :linecolor  --> :black
+    :markersize --> 15
 
     # these will be per-series
     linetype = []
@@ -57,8 +54,8 @@ function Plots._apply_recipe(d::KW, net::NeuralNet; kw...)
     end
 
     # set the linetype and marker_z args using row-vectors
-    d[:linetype] = reshape(linetype, 1, length(linetype))
-    d[:marker_z] = reshape(marker_z, 1, length(marker_z))
+    :linetype --> reshape(linetype, 1, length(linetype)), :force
+    :marker_z --> reshape(marker_z, 1, length(marker_z)), :force
 
     # return the args
     xlist, ylist
@@ -66,9 +63,11 @@ end
 
 # -------------------------------------------------------
 
+# TODO: should this object should hold the data, and make a recipe on it??
+
 type SpikeTrains
     n::Int
-    plt::Plot
+    plt
 end
 
 function SpikeTrains(n::Integer; kw...)
@@ -78,7 +77,6 @@ end
 
 const _halfheight = 0.4
 function Base.push!(spiketrains::SpikeTrains, idx::Integer, t::Real)
-    # push!(spiketrains.plt, idx, t, idx)
     append!(spiketrains.plt, idx, Float64[NaN, t, t],
             Float64[NaN, idx + _halfheight, idx - _halfheight])
     spiketrains

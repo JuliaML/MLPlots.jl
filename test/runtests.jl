@@ -7,7 +7,7 @@ using OnlineAI
 import ROCAnalysis
 import ValueHistories
 
-using MLPlots
+using MLPlots, Plots
 
 # don't let pyplot use a gui... it'll crash
 # note: Agg will set gui -> :none in PyPlot
@@ -74,7 +74,7 @@ facts("CorrPlot") do
         M = randn(1000, 4)
         M[:,2] += 0.8M[:,1]
         M[:,3] -= 0.7M[:,1]
-        corrplot(M, size=(700,700))
+        corrplot(M, size=(500,500))
     end
 end
 

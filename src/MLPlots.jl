@@ -2,6 +2,7 @@ module MLPlots
 
 using Reexport
 @reexport using Plots
+using RecipesBase
 using Requires
 
 export

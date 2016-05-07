@@ -4,10 +4,12 @@
 
 Common plotting recipes for statistics and machine learning.
 
-This package uses [Plots.jl](https://github.com/tbreloff/Plots.jl) to provide high-level statistical and machine learning plotting
-recipes which are independent of both the platform and graphical library.
+This package uses [RecipesBase](https://github.com/JuliaPlots/RecipesBase.jl) to provide mappings from types defined in
+statistics and machine learning packages to generic descriptions of visualization attributes and data.  These recipes can then be used in
+conjunction with [Plots.jl](https://github.com/tbreloff/Plots.jl) to provide flexible statistical and machine learning
+visualizations which are independent of both the platform and graphical library.
 
-There are plotting recipes for external packages which are conditionally included and are loaded on the relevant `using` call.
+Many recipes are conditionally included and are loaded on the relevant `using` call of the library.
 For example `using LearnBase, MLPlots` will load plotting recipes for loss functions defined in LearnBase.  Recipes include:
 
 - [LearnBase](#learnbase): Loss functions
