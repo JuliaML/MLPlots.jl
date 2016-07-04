@@ -1,16 +1,16 @@
-using LearnBase
+using Losses
 
-_loss_xlabel(loss::Union{MarginLoss, LossFunctions.ZeroOneLoss}) = "y ⋅ h(x)"
+_loss_xlabel(loss::Union{MarginLoss,ZeroOneLoss}) = "y ⋅ h(x)"
 _loss_xlabel(loss::DistanceLoss) = "h(x) - y"
 
-@recipe function plot(loss::ModelLoss, xmin = -2, xmax = 2)
-    :xlabel --> _loss_xlabel(loss)
-    :ylabel --> "L(y, h(x))"
-    :label  --> string(loss)
+@recipe function plot(loss::Loss, xmin = -2, xmax = 2)
+    # :xlabel --> _loss_xlabel(loss)
+    # :ylabel --> "L(y, h(x))"
+    # :label  --> string(loss)
     value_fun(loss), xmin, xmax
 end
 
-@recipe function plot{T<:ModelLoss}(losses::AbstractVector{T}, xmin = -2, xmax = 2)
+@recipe function plot{T<:Loss}(losses::AbstractVector{T}, xmin = -2, xmax = 2)
     :ylabel --> "L(y, h(x))"
     :label  --> map(string, losses)'
     if issubplot
