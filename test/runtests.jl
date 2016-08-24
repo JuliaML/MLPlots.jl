@@ -3,6 +3,7 @@ module MLPlotsTests
 using VisualRegressionTests
 using FactCheck
 
+using LearnBase
 using OnlineAI
 import ROCAnalysis
 import ValueHistories

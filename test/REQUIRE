@@ -5,6 +5,7 @@ Requires
 Plots
 FactCheck
 VisualRegressionTests
+LearnBase
 ROCAnalysis
 ValueHistories
 OnlineStats
