@@ -15,7 +15,7 @@ For example `using ROCAnalysis, MLPlots` will load plotting recipes for roc curv
 - [OnlineAI](#onlineai): Neural nets and spike trains
 - [ROCAnalysis](#rocanalysis): ROC/AUC curves
 
-#### Status: This package is usable and tested, but needs more content.  Collaboration is welcomed and encouraged!
+#### Status: This package is currently on hiatus until further notice.  Collaboration is welcomed and encouraged!
 
 ## OnlineAI
 
