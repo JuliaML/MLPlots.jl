@@ -23,12 +23,12 @@ function TracePlot(n::Int = 1; maxn::Int = typemax(Int), kw...)
     plt = plot(length(indices); kw...)
     TracePlot(indices, plt)
 end
-function add_data(tp::TracePlot, x::Number, y::AbstractVector)
+function Base.push!(tp::TracePlot, x::Number, y::AbstractVector)
     for (i,idx) in enumerate(tp.indices)
         push!(tp.plt.series_list[i], x, y[idx])
     end
 end
-add_data(tp::TracePlot, x::Number, y::Number) = add_data(tp, x, [y])
+Base.push!(tp::TracePlot, x::Number, y::Number) = push!(tp, x, [y])
 
 # ---------------------------------------------------------------------
 # optional
