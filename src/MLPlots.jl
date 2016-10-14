@@ -2,6 +2,7 @@ module MLPlots
 
 using Reexport
 @reexport using PlotRecipes
+using LearnBase
 
 export
     TracePlot
@@ -33,8 +34,26 @@ Base.push!(tp::TracePlot, x::Number, y::Number) = push!(tp, x, [y])
 # ---------------------------------------------------------------------
 # optional
 
-using Requires
-@require OnlineAI         include("OnlineAI/onlineai.jl")
-@require ROCAnalysis      include("ROCAnalysis/roc.jl")
+function is_installed(name::AbstractString)
+    try
+        Pkg.installed(name) === nothing ? false: true
+    catch
+        false
+    end
+end
+
+# using Requires
+# @require OnlineAI         include("OnlineAI/onlineai.jl")
+# @require ROCAnalysis      include("ROCAnalysis/roc.jl")
+
+if is_installed("Transformations")
+    include("optional/transformations.jl")
+end
+if is_installed("OnlineAI")
+    include("optional/onlineai.jl")
+end
+if is_installed("ROCAnalysis")
+    include("optional/roc.jl")
+end
 
 end # module
