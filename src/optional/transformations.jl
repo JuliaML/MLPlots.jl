@@ -6,10 +6,11 @@ export
 
 # -------------------------------------------------------------------------
 
-#=
+"""
 A ChainPlot is a bunch of TracePlots that are updated with the param/input/output
 values and gradients from a Transformations.Chain.  An example:
 
+```julia
 using MLPlots, Transformations
 
 # build a neural net
@@ -26,9 +27,9 @@ for i=1:20
     # update the ChainPlot and display it
     update!(cp)
     gui()
-=#
-
-# the maps map chain transformation index to subplot index
+end
+```
+"""
 type ChainPlot
     chain::Chain
     plt::Plot
