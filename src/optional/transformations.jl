@@ -42,9 +42,20 @@ type ChainPlot
     dytps::Vector{TracePlot}
 end
 
-function add_traceplots(plt, valtps, gradtps, n, idxbase, i, idxdiff, title, add_yguide, kw)
-    push!(valtps, TracePlot(n; sp=plt[idxbase+i], title=title, yguide=(add_yguide ? "Value" : ""), kw...))
-    push!(gradtps, TracePlot(n; sp=plt[idxbase+i+idxdiff], yguide=(add_yguide ? "Grad" : ""), kw...))
+function add_traceplots(plt, valtps, gradtps, n, idxbase, i, idxdiff, title, add_yguide, kw) #, xguide="")
+    push!(valtps, TracePlot(n;
+        sp=plt[idxbase+i],
+        title = title,
+        yguide = (add_yguide ? "Value" : ""),
+        # xguide = xguide,
+        kw...
+    ))
+    push!(gradtps, TracePlot(n;
+        sp = plt[idxbase+i+idxdiff],
+        yguide = (add_yguide ? "Grad" : ""),
+        # xguide = xguide,
+        kw...
+    ))
 end
 
 function ChainPlot(chain::Chain; kw...)
@@ -63,17 +74,17 @@ function ChainPlot(chain::Chain; kw...)
     for (i,t) in enumerate(chain.ts)
         np = length(params(t))
         if np > 0
-            add_traceplots(plt, θtps, ∇tps, np, 0, pidx, nparams, string(t), i==1, kw)
+            add_traceplots(plt, θtps, ∇tps, np, 0, pidx, nparams, string(t), i==1, kw) #, "params $i $t")
             pidx += 1
         end
 
         if i == 1
             nin = input_length(t)
-            add_traceplots(plt, ytps, dytps, nin, 2nparams, i, n, "Input", true, kw)
+            add_traceplots(plt, ytps, dytps, nin, 2nparams, i, n+1, "Input", true, kw) #, "input $i $t")
         end
 
         nout = output_length(t)
-        add_traceplots(plt, ytps, dytps, nout, 2nparams+1, i, n, string(t), false, kw)
+        add_traceplots(plt, ytps, dytps, nout, 2nparams+1, i, n+1, string(t), false, kw) #, "output $i $t")
     end
 
     ChainPlot(chain, plt, n, nparams, 0.0, θtps, ∇tps, ytps, dytps)
