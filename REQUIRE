@@ -1,5 +1,5 @@
 julia 0.5
 
 Reexport
-PlotRecipes
+Plots
 LearnBase

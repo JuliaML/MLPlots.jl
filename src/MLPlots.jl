@@ -1,7 +1,7 @@
 module MLPlots
 
 using Reexport
-@reexport using PlotRecipes
+@reexport using Plots
 import Plots: Series
 using LearnBase
 
