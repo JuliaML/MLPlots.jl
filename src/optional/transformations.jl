@@ -1,8 +1,30 @@
 
 using Transformations
+using PlotRecipes
 
 export
     ChainPlot
+
+# -------------------------------------------------------------------------
+# Chain
+
+@recipe function f(chain::Chain)
+    tmap = Dict()
+    for (i,t) in enumerate(chain.ts)
+        tmap[input_node(t)] = i
+    end
+    source = Int[]
+    destiny = Int[]
+    for (i,t) in enumerate(chain.ts)
+        for tonode in output_node(t).tonodes
+            push!(source, i)
+            push!(destiny, tmap[tonode])
+        end
+    end
+    method --> :tree
+    names --> map(string, chain.ts)
+    PlotRecipes.GraphPlot((source, destiny))
+end
 
 # -------------------------------------------------------------------------
 

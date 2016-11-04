@@ -2,7 +2,7 @@ module MLPlots
 
 using Reexport
 @reexport using Plots
-import Plots: Series
+import Plots: Series, Plot, Subplot
 using LearnBase
 
 export
