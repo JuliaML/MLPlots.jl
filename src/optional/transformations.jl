@@ -13,16 +13,34 @@ export
     for (i,t) in enumerate(chain.ts)
         tmap[input_node(t)] = i
     end
-    source = Int[]
-    destiny = Int[]
+    # connect input (1) --> ts[1], and ts[end] --> output (-1)
+    n = length(chain.ts)
+    source = Int[n+1, n]
+    destiny = Int[1, n+2]
+    colors = Symbol[]
+    shapes = Symbol[]
     for (i,t) in enumerate(chain.ts)
+        c,s = if isa(t, Activation)
+            :orangered, :circle
+        elseif isa(t, Linear) || isa(t, Affine)
+            :steelblue, :hexagon
+        else
+            :lightgreen, :rect
+        end
+        push!(colors, c)
+        push!(shapes, s)
         for tonode in output_node(t).tonodes
             push!(source, i)
             push!(destiny, tmap[tonode])
         end
     end
+    append!(colors, [:cyan,:cyan])
+    append!(shapes, [:circle,:circle])
     method --> :tree
-    names --> map(string, chain.ts)
+    names --> vcat(map(string, chain.ts), "Input", "Output")
+    markercolor --> colors
+    markershape --> shapes
+    markeralpha --> 0.6
     PlotRecipes.GraphPlot((source, destiny))
 end
 
