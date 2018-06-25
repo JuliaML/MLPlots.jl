@@ -44,7 +44,7 @@ Base.push!(tp::TracePlot, x::Number, y::Number) = push!(tp, x, [y])
 
 function is_installed(name::AbstractString)
     try
-        Pkg.installed(name) === nothing ? false: true
+        Pkg.installed(name) === nothing ? false : true
     catch
         false
     end

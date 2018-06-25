@@ -16,6 +16,7 @@ ENV["MPLBACKEND"] = "Agg"
 try
     @eval import PyPlot
     info("Matplotlib version: $(PyPlot.matplotlib[:__version__])")
+catch
 end
 pyplot(size=(400,300), reuse=true)
 
