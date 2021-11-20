@@ -1,4 +1,6 @@
-# MLPlots
+# MLPlots (deprecated)
+
+__Note: this package is out of date and not usable with newer versions of Julia.__
 
 [![Build Status](https://travis-ci.org/JuliaML/MLPlots.jl.svg?branch=master)](https://travis-ci.org/JuliaML/MLPlots.jl)
 
